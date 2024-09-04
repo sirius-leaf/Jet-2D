@@ -4,8 +4,8 @@
 [ext_resource type="Script" path="res://Script/player.gd" id="1_xlggh"]
 [ext_resource type="PackedScene" uid="uid://cv630pxyrwwdb" path="res://Scenes/Object Scene/bullet.tscn" id="2_7knr0"]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_axwtd"]
-size = Vector2(26, 12)
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_u6l00"]
+size = Vector2(24, 12)
 
 [node name="Player" type="RigidBody2D"]
 gravity_scale = 0.0
@@ -18,7 +18,7 @@ bulletScene = ExtResource("2_7knr0")
 texture = ExtResource("1_ert1w")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-shape = SubResource("RectangleShape2D_axwtd")
+shape = SubResource("RectangleShape2D_u6l00")
 
 [node name="Timer" type="Timer" parent="."]
 wait_time = 0.1
