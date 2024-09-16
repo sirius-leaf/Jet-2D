@@ -10,9 +10,14 @@ const rngBulletRotation: float = 3.0
 
 var rng = RandomNumberGenerator.new()
 var currentMoveSpeed: float = 1000.0
+var enemyChase: bool = true
+var targetEnemy
+var enemyInScene = []
 
 func _ready():
 	rng.randomize()
+	enemyInScene = get_tree().get_nodes_in_group("Enemy")
+	SelectEnemy()
 
 func _process(delta):
 	# rotate player
@@ -32,6 +37,25 @@ func _process(delta):
 	else:
 		sprite.flip_v = false
 		$Marker2D.position.y = 8
+	
+	if targetEnemy != null:
+		var enemyPos = targetEnemy.global_position
+		var angleToEnemy = abs(rad_to_deg(get_angle_to(enemyPos)))
+		
+		$EnemyDirection.look_at(enemyPos)
+		
+		if angleToEnemy < 10.0:
+			$Marker2D.look_at(enemyPos)
+			$EnemyDirection/Bullet.modulate = Color("red")
+		else:
+			$EnemyDirection/Bullet.modulate = Color("white")
+			$Marker2D.rotation_degrees = 0
+	else:
+		enemyInScene = get_tree().get_nodes_in_group("Enemy")
+		if not enemyInScene.is_empty():
+			SelectEnemy()
+		else:
+			$EnemyDirection.rotation_degrees = 0
 
 func _physics_process(delta):
 	apply_central_force(Vector2(cos(deg_to_rad(rotation_degrees)) * currentMoveSpeed, sin(deg_to_rad(rotation_degrees)) * currentMoveSpeed))
@@ -45,3 +69,12 @@ func Shoot():
 	get_tree().root.add_child(bullet)
 	bullet.transform = $Marker2D.global_transform
 	bullet.rotation_degrees += rng.randf_range(-rngBulletRotation, rngBulletRotation)
+
+func SelectEnemy():
+	var enemyDistance = []
+	
+	for enemy in enemyInScene:
+		enemyDistance.append(global_position.distance_to(enemy.global_position))
+	
+	var enemyIndex = enemyDistance.find(enemyDistance.min())
+	targetEnemy = enemyInScene[enemyIndex]

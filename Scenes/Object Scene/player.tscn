@@ -1,13 +1,15 @@
-[gd_scene load_steps=5 format=3 uid="uid://vohn50v2amyi"]
+[gd_scene load_steps=6 format=3 uid="uid://vohn50v2amyi"]
 
 [ext_resource type="Texture2D" uid="uid://sf2qovf02iij" path="res://Assets/Sprite/Player Placeholder.png" id="1_ert1w"]
 [ext_resource type="Script" path="res://Script/player.gd" id="1_xlggh"]
 [ext_resource type="PackedScene" uid="uid://cv630pxyrwwdb" path="res://Scenes/Object Scene/bullet.tscn" id="2_7knr0"]
+[ext_resource type="Texture2D" uid="uid://b8k581wkmxbt0" path="res://Assets/Sprite/Bullet.png" id="4_3hi5y"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_u6l00"]
 size = Vector2(24, 12)
 
 [node name="Player" type="RigidBody2D"]
+collision_mask = 0
 gravity_scale = 0.0
 linear_damp = 5.0
 angular_damp = 5.0
@@ -23,6 +25,13 @@ shape = SubResource("RectangleShape2D_u6l00")
 [node name="Timer" type="Timer" parent="."]
 wait_time = 0.1
 autostart = true
+
+[node name="EnemyDirection" type="Node2D" parent="."]
+
+[node name="Bullet" type="Sprite2D" parent="EnemyDirection"]
+position = Vector2(26, 0)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("4_3hi5y")
 
 [node name="Marker2D" type="Marker2D" parent="."]
 position = Vector2(16, 8)
