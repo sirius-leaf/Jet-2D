@@ -10,7 +10,6 @@ const rngBulletRotation: float = 3.0
 
 var rng = RandomNumberGenerator.new()
 var currentMoveSpeed: float = 1000.0
-var enemyChase: bool = true
 var targetEnemy
 var enemyInScene = []
 
@@ -33,22 +32,29 @@ func _process(delta):
 	
 	if rotation_degrees < -90.0 or rotation_degrees > 90.0:
 		sprite.flip_v = true
-		$Marker2D.position.y = -8
 	else:
 		sprite.flip_v = false
-		$Marker2D.position.y = 8
 	
+	# target nearest enemy
 	if targetEnemy != null:
 		var enemyPos = targetEnemy.global_position
 		var angleToEnemy = abs(rad_to_deg(get_angle_to(enemyPos)))
+		var enemyPointerAlpha: float = 1.0
+		var distanceToEnemy = global_position.distance_to(enemyPos)
 		
 		$EnemyDirection.look_at(enemyPos)
+		$EnemyDirection/Node2D/Label.text = str(roundi(distanceToEnemy))
 		
-		if angleToEnemy < 10.0:
-			$Marker2D.look_at(enemyPos)
-			$EnemyDirection/Bullet.modulate = Color("red")
+		if distanceToEnemy > 200:
+			enemyPointerAlpha = 0.3
 		else:
-			$EnemyDirection/Bullet.modulate = Color("white")
+			enemyPointerAlpha = 1.0
+		
+		if angleToEnemy < 20.0:
+			$Marker2D.look_at(enemyPos)
+			$EnemyDirection/Bullet.modulate = Color("red", enemyPointerAlpha)
+		else:
+			$EnemyDirection/Bullet.modulate = Color("white", enemyPointerAlpha)
 			$Marker2D.rotation_degrees = 0
 	else:
 		enemyInScene = get_tree().get_nodes_in_group("Enemy")
@@ -56,6 +62,7 @@ func _process(delta):
 			SelectEnemy()
 		else:
 			$EnemyDirection.rotation_degrees = 0
+	
 
 func _physics_process(delta):
 	apply_central_force(Vector2(cos(deg_to_rad(rotation_degrees)) * currentMoveSpeed, sin(deg_to_rad(rotation_degrees)) * currentMoveSpeed))

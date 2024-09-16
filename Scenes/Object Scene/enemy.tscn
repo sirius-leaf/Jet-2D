@@ -1,7 +1,8 @@
-[gd_scene load_steps=5 format=3 uid="uid://c00j8m40sxiak"]
+[gd_scene load_steps=6 format=3 uid="uid://c00j8m40sxiak"]
 
-[ext_resource type="Texture2D" uid="uid://sf2qovf02iij" path="res://Assets/Sprite/Player Placeholder.png" id="1_2c1hf"]
 [ext_resource type="Script" path="res://Script/enemy.gd" id="1_y47ve"]
+[ext_resource type="Texture2D" uid="uid://do8tsrxg348h2" path="res://Assets/Sprite/Player2 Placeholder.png" id="2_1c4cp"]
+[ext_resource type="PackedScene" uid="uid://d3r457l4bqgrk" path="res://Scenes/Object Scene/enemyBullet.tscn" id="2_sjrx6"]
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_7a631"]
 friction = 0.0
@@ -17,12 +18,20 @@ gravity_scale = 0.0
 linear_damp = 5.0
 angular_damp = 5.0
 script = ExtResource("1_y47ve")
+bulletScene = ExtResource("2_sjrx6")
 
 [node name="PlayerPlaceholder" type="Sprite2D" parent="."]
 modulate = Color(1, 0, 0, 1)
-texture = ExtResource("1_2c1hf")
+texture = ExtResource("2_1c4cp")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("RectangleShape2D_4orm6")
 
-[connection signal="dead" from="." to="." method="_on_dead"]
+[node name="Marker2D" type="Marker2D" parent="."]
+position = Vector2(16, 0)
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 0.25
+autostart = true
+
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
