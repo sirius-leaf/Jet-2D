@@ -11,7 +11,7 @@ size = Vector2(24, 12)
 [sub_resource type="LabelSettings" id="LabelSettings_3r2gi"]
 font_size = 10
 
-[node name="Player" type="RigidBody2D"]
+[node name="Player" type="RigidBody2D" groups=["Player"]]
 collision_mask = 0
 gravity_scale = 0.0
 linear_damp = 5.0

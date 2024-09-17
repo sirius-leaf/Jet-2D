@@ -12,6 +12,7 @@ var rng = RandomNumberGenerator.new()
 var currentMoveSpeed: float = 1000.0
 var targetEnemy
 var enemyInScene = []
+var hp: int = 15
 
 func _ready():
 	rng.randomize()

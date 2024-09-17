@@ -6,16 +6,17 @@ const rotateSpeed: float = 600.0
 const moveSpeed: float = 300.0
 
 var hp: int = 10
+var playerNode
 
 func _ready():
-	pass
+	playerNode = $"../Player"
 
 func _process(delta):
 	if hp <= 0:
 		queue_free()
 
 func _physics_process(delta):
-	var angleToPlayer: float = get_angle_to($"../Player".global_position)
+	var angleToPlayer: float = get_angle_to(playerNode.global_position)
 	
 	if angleToPlayer < 0:
 		apply_torque(-1000.0)
@@ -25,7 +26,7 @@ func _physics_process(delta):
 	apply_central_force(Vector2(cos(deg_to_rad(rotation_degrees)) * moveSpeed, sin(deg_to_rad(rotation_degrees)) * moveSpeed))
 
 func _on_timer_timeout():
-	if abs(rad_to_deg(get_angle_to($"../Player".global_position))) < 10.0 and global_position.distance_to($"../Player".global_position) < 120.0:
+	if abs(rad_to_deg(get_angle_to(playerNode.global_position))) < 10.0 and global_position.distance_to($"../Player".global_position) < 120.0:
 		Shoot()
 
 func Shoot():
