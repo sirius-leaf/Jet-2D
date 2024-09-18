@@ -1,10 +1,10 @@
 extends Control
 
-var playerNode
+@onready var player = $"../../Player"
 
 func _ready():
-	playerNode = $"../../Player"
+	pass
 
 func _process(delta):
-	$playerHealthBar.value = playerNode.hp
-	$PlayerSpeedBar.value = playerNode.currentMoveSpeed - 1000
+	$playerHealthBar.value = player.hp
+	$PlayerSpeedBar.value = player.currentMoveSpeed - 1000

@@ -9,7 +9,7 @@ var shake: Vector2
 var startPos: Vector2
 
 func _ready():
-	startPos = position 
+	startPos = position
 	rng.randomize()
 
 func _physics_process(delta):

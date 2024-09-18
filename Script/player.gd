@@ -17,7 +17,8 @@ var hp: int = 15
 func _ready():
 	rng.randomize()
 	enemyInScene = get_tree().get_nodes_in_group("Enemy")
-	SelectEnemy()
+	if not enemyInScene.is_empty():
+		SelectEnemy()
 
 func _process(delta):
 	# rotate player
@@ -31,7 +32,7 @@ func _process(delta):
 	else:
 		currentMoveSpeed = clamp(currentMoveSpeed - 1000.0 * delta, 1000.0, 2000.0)
 	
-	if rotation_degrees < -90.0 or rotation_degrees > 90.0:
+	if abs(rotation_degrees) > 90.0:
 		sprite.flip_v = true
 	else:
 		sprite.flip_v = false

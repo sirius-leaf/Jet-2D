@@ -1,19 +1,12 @@
-[gd_scene load_steps=5 format=3 uid="uid://cn4rykqfd6bcr"]
+[gd_scene load_steps=4 format=3 uid="uid://cn4rykqfd6bcr"]
 
 [ext_resource type="PackedScene" uid="uid://vohn50v2amyi" path="res://Scenes/Object Scene/player.tscn" id="1_jjp03"]
-[ext_resource type="Script" path="res://Scenes/Main Scene/Camera.gd" id="2_jegim"]
 [ext_resource type="PackedScene" uid="uid://c00j8m40sxiak" path="res://Scenes/Object Scene/enemy.tscn" id="4_bdmjn"]
 [ext_resource type="PackedScene" uid="uid://cpgnqftg2od3s" path="res://Scenes/Object Scene/ui.tscn" id="4_tfpoe"]
 
 [node name="Level" type="Node2D"]
 
 [node name="Player" parent="." instance=ExtResource("1_jjp03")]
-
-[node name="Camera2D" type="Camera2D" parent="Player"]
-position = Vector2(128, 0)
-zoom = Vector2(2.5, 2.5)
-position_smoothing_enabled = true
-script = ExtResource("2_jegim")
 
 [node name="Enemy" parent="." instance=ExtResource("4_bdmjn")]
 position = Vector2(80, -56)

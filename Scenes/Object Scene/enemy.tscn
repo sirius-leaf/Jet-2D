@@ -1,8 +1,8 @@
-[gd_scene load_steps=6 format=3 uid="uid://c00j8m40sxiak"]
+[gd_scene load_steps=7 format=3 uid="uid://c00j8m40sxiak"]
 
-[ext_resource type="Script" path="res://Script/enemy.gd" id="1_y47ve"]
+[ext_resource type="Script" path="res://Script/enemy1movement.gd" id="1_u7lah"]
 [ext_resource type="Texture2D" uid="uid://do8tsrxg348h2" path="res://Assets/Sprite/Player2 Placeholder.png" id="2_1c4cp"]
-[ext_resource type="PackedScene" uid="uid://d3r457l4bqgrk" path="res://Scenes/Object Scene/enemyBullet.tscn" id="2_sjrx6"]
+[ext_resource type="PackedScene" uid="uid://d3r457l4bqgrk" path="res://Scenes/Object Scene/enemyBullet.tscn" id="2_drhrf"]
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_7a631"]
 friction = 0.0
@@ -10,14 +10,17 @@ friction = 0.0
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_4orm6"]
 size = Vector2(24, 12)
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_mexaa"]
+size = Vector2(51, 28)
+
 [node name="Enemy" type="RigidBody2D" groups=["Enemy"]]
 collision_mask = 0
 physics_material_override = SubResource("PhysicsMaterial_7a631")
 gravity_scale = 0.0
 linear_damp = 5.0
 angular_damp = 5.0
-script = ExtResource("1_y47ve")
-bulletScene = ExtResource("2_sjrx6")
+script = ExtResource("1_u7lah")
+bulletScene = ExtResource("2_drhrf")
 
 [node name="PlayerPlaceholder" type="Sprite2D" parent="."]
 modulate = Color(1, 0, 0, 1)
@@ -33,4 +36,19 @@ position = Vector2(16, 0)
 wait_time = 0.25
 autostart = true
 
+[node name="Area2D" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+position = Vector2(38.5, 0)
+shape = SubResource("RectangleShape2D_mexaa")
+
+[node name="Label" type="Label" parent="."]
+offset_left = 5.0
+offset_top = 6.0
+offset_right = 45.0
+offset_bottom = 29.0
+text = "a"
+
 [connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
+[connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]
+[connection signal="body_exited" from="Area2D" to="." method="_on_area_2d_body_exited"]
