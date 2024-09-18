@@ -22,7 +22,7 @@ angular_damp = 5.0
 script = ExtResource("1_u7lah")
 bulletScene = ExtResource("2_drhrf")
 
-[node name="PlayerPlaceholder" type="Sprite2D" parent="."]
+[node name="Sprite" type="Sprite2D" parent="."]
 modulate = Color(1, 0, 0, 1)
 texture = ExtResource("2_1c4cp")
 
@@ -41,13 +41,6 @@ autostart = true
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
 position = Vector2(38.5, 0)
 shape = SubResource("RectangleShape2D_mexaa")
-
-[node name="Label" type="Label" parent="."]
-offset_left = 5.0
-offset_top = 6.0
-offset_right = 45.0
-offset_bottom = 29.0
-text = "a"
 
 [connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
 [connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]

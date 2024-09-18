@@ -9,6 +9,8 @@ func _ready():
 	pass
 
 func _process(delta):
+	HealthCheck()
+	
 	if abs(rotation_degrees) > 90.0:
 		sprite.flip_v = true
 	else:
@@ -16,9 +18,6 @@ func _process(delta):
 
 func _physics_process(delta):
 	var angleToPlayer: float = get_angle_to(player.global_position)
-	
-	$Label.text = str(moveSpeed)
-	
 	if moveSpeed >= 300:
 		rotateSpeed = 800.0
 	else:

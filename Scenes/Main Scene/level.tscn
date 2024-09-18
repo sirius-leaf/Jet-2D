@@ -17,6 +17,4 @@ position = Vector2(-40, -56)
 [node name="Enemy3" parent="." instance=ExtResource("4_bdmjn")]
 position = Vector2(40, 112)
 
-[node name="CanvasLayer" type="CanvasLayer" parent="."]
-
-[node name="UI" parent="CanvasLayer" instance=ExtResource("4_tfpoe")]
+[node name="UI" parent="." instance=ExtResource("4_tfpoe")]

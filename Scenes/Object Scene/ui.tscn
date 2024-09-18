@@ -2,7 +2,9 @@
 
 [ext_resource type="Script" path="res://Script/ui.gd" id="1_fftis"]
 
-[node name="UI" type="Control"]
+[node name="UICanvas" type="CanvasLayer"]
+
+[node name="UI" type="Control" parent="."]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -11,7 +13,7 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_fftis")
 
-[node name="playerHealthBar" type="ProgressBar" parent="."]
+[node name="playerHealthBar" type="ProgressBar" parent="UI"]
 layout_mode = 1
 offset_left = 16.0
 offset_top = 16.0
@@ -20,7 +22,7 @@ offset_bottom = 56.0
 max_value = 15.0
 value = 15.0
 
-[node name="PlayerSpeedBar" type="ProgressBar" parent="."]
+[node name="PlayerSpeedBar" type="ProgressBar" parent="UI"]
 layout_mode = 1
 offset_left = 16.0
 offset_top = 64.0

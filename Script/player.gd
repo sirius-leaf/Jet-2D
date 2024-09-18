@@ -52,7 +52,7 @@ func _process(delta):
 		else:
 			enemyPointerAlpha = 1.0
 		
-		if angleToEnemy < 20.0:
+		if angleToEnemy < 20.0 and distanceToEnemy <= 350.0:
 			$Marker2D.look_at(enemyPos)
 			$EnemyDirection/Bullet.modulate = Color("red", enemyPointerAlpha)
 		else:
