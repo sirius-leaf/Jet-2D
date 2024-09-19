@@ -2,6 +2,8 @@ extends "res://Script/enemy.gd"
 
 @onready var rayCast = $RayCast2D
 
+@export var bulletScene: PackedScene
+
 var moveSpeed: float = 300.0
 var isColliding: bool = false
 
@@ -15,6 +17,8 @@ func _process(delta):
 	
 	if rayCast.is_colliding():
 		moveSpeed = 50.0
+	elif global_position.distance_to($"../Player".global_position) > 200.0:
+		moveSpeed = 600.0
 	else:
 		moveSpeed = 300.0
 	
@@ -27,9 +31,19 @@ func _physics_process(delta):
 	
 	apply_central_force(Vector2(cos(angleToPlayer) * moveSpeed, sin(angleToPlayer) * moveSpeed))
 
+func Shoot():
+	var bullet = bulletScene.instantiate()
+	get_tree().root.add_child(bullet)
+	bullet.transform = $Marker2D.global_transform
+
 func _on_area_2d_body_entered(body):
 	if body.is_in_group("Enemy"):
 		isColliding = true
 
 func _on_area_2d_body_exited(body):
 	isColliding = false
+
+func _on_timer_timeout():
+	if abs(rad_to_deg(get_angle_to(player.global_position) - deg_to_rad(90))) < 40.0 and global_position.distance_to(player.global_position) < 150.0:
+		$Marker2D.look_at($"../Player".global_position)
+		Shoot()

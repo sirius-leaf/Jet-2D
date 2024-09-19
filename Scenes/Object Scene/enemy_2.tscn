@@ -1,7 +1,8 @@
-[gd_scene load_steps=5 format=3 uid="uid://b5u7q40cs1x2q"]
+[gd_scene load_steps=6 format=3 uid="uid://b5u7q40cs1x2q"]
 
 [ext_resource type="Texture2D" uid="uid://bcdqttth53cx8" path="res://Assets/Sprite/UFO Placeholder.png" id="1_g2cn0"]
 [ext_resource type="Script" path="res://Script/enemy_2.gd" id="1_py56s"]
+[ext_resource type="PackedScene" uid="uid://d3r457l4bqgrk" path="res://Scenes/Object Scene/enemyBullet.tscn" id="2_vicf4"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_1e7o7"]
 size = Vector2(30, 11)
@@ -16,6 +17,7 @@ gravity_scale = 0.0
 lock_rotation = true
 linear_damp = 5.0
 script = ExtResource("1_py56s")
+bulletScene = ExtResource("2_vicf4")
 
 [node name="Sprite" type="Sprite2D" parent="."]
 modulate = Color(1, 0, 0, 1)
@@ -37,5 +39,14 @@ target_position = Vector2(40, 0)
 
 [node name="Node2D" type="Node2D" parent="."]
 
+[node name="Timer" type="Timer" parent="."]
+wait_time = 0.25
+autostart = true
+
+[node name="Marker2D" type="Marker2D" parent="."]
+position = Vector2(0, 8)
+rotation = 1.5708
+
 [connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]
 [connection signal="body_exited" from="Area2D" to="." method="_on_area_2d_body_exited"]
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
